@@ -1,11 +1,13 @@
-import Footer from "./components/Footer";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
-    <>
-      <h1 className="text-4xl text-center">HELLO</h1>
-      <Footer />
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 
