@@ -2,7 +2,7 @@ import SocialMedia from "./SocialMedia";
 
 function Footer() {
   return (
-    <footer className="w-screen fixed bottom-0 px-2 py-1 flex justify-between items-center bg-zinc-100">
+    <footer className="container fixed bottom-0 px-2 py-1 flex justify-between items-center bg-zinc-100">
       <div className="opacity-75">
         <h6 className="text-sm">
           &copy; Copyright 2022, 
