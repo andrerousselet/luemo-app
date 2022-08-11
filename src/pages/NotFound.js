@@ -1,9 +1,13 @@
 import Footer from '../components/Footer'
+import Header from '../components/Header';
 
 function NotFound() {
   return (
     <>
-      <h1 className="text-4xl text-center">Page Not Found!</h1>
+      <Header />
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-4xl">Page Not Found!</p>
+      </div>
       <Footer />
     </>
   );

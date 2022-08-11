@@ -1,9 +1,10 @@
 import Footer from '../components/Footer'
+import Header from '../components/Header'
 
 function Home() {
   return (
     <>
-      <h1 className="text-4xl text-center">HELLO</h1>
+      <Header />
       <Footer />
     </>
   );
