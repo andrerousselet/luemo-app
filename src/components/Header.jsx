@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/luemo-logo.png';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import Navbar from './MenuNavbar';
 
 function Header({ pageTitle }) {
   const [isNavbar, setIsNavbar] = useState(false);
@@ -15,7 +15,17 @@ function Header({ pageTitle }) {
         <h1 className="text-xl">{pageTitle}</h1>
         <img className="w-12" src={logo} alt="lu-e-mo-logo" />
       </section>
-      <Navbar isNavbar={isNavbar} />
+      <nav className={!isNavbar ? "hidden" : "flex justify-around"}>
+      <Link to="/menu">
+        <div className="">Menu</div>
+      </Link>
+      <Link to="/clients">
+        <div className="">Clients</div>
+      </Link>
+      <Link to="/orders">
+        <div className="">Orders</div>
+      </Link>
+    </nav>
     </header>
   );
 }
