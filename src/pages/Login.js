@@ -35,10 +35,22 @@ export default function Login() {
           </button>
           <button
             type="button"
-            className="text-sm"
+            className="text-xs"
             onClick={() => setNewUser(!newUser)}
           >
-            {!newUser && 'Novo usuário?'}
+            {!newUser ? (
+              <p>
+                Novo usuário? Cadastre-se
+                {' '}
+                <strong className="underline decoration-indigo-700 text-indigo-700">aqui!</strong>
+              </p>
+            ) : (
+              <p>
+                Já possui conta? Faça login
+                {' '}
+                <strong className="underline decoration-indigo-700 text-indigo-700">aqui!</strong>
+              </p>
+            )}
           </button>
         </div>
       </form>
