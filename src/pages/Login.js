@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import logo from '../assets/luemo-logo.png';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
+  const [newUser, setNewUser] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -11,24 +13,32 @@ export default function Login() {
   return (
     <div>
       <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center h-screen">
-        <div className="flex flex-col justify-center items-center border border-slate-50 shadow-md rounded p-8">
+        <div className="flex flex-col justify-center items-center border border-slate-50 shadow-md rounded px-8 pt-8 pb-4">
+          <img className="w-[193px] mb-8" src={logo} alt="lu-e-mo-logo" />
           <input
-            className="border-slate-400 rounded mb-4"
+            className="border-slate-300 rounded mb-4"
             type="email"
             placeholder="Email"
             onChange={({ target }) => setEmail(target.value)}
           />
           <input
-            className="border-slate-400 rounded mb-4"
+            className="border-slate-300 rounded mb-4"
             type="password"
             placeholder="Senha"
             onChange={({ target }) => setPass(target.value)}
           />
           <button
             type="submit"
-            className="border-slate-100 rounded p-2 bg-slate-100 w-full"
+            className="border-slate-100 rounded p-2 bg-slate-100 w-full mb-4"
           >
-            Entrar
+            {newUser ? 'Cadastrar' : 'Entrar'}
+          </button>
+          <button
+            type="button"
+            className="text-sm"
+            onClick={() => setNewUser(!newUser)}
+          >
+            {!newUser && 'Novo usuário?'}
           </button>
         </div>
       </form>
