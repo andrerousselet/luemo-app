@@ -7,9 +7,8 @@ function PrivateRoute() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const redirect = () => !loggedUser && navigate('/', { replace: true });
-    redirect();
-  }, [loggedUser]);
+    if (!loggedUser) navigate('/', { replace: true });
+  });
 
   return <Outlet />;
 }
