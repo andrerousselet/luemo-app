@@ -31,6 +31,7 @@ function AuthProvider({ children }) {
 
   const logout = async () => {
     await signOut(auth);
+    navigate('/');
   };
 
   useEffect(() => {
