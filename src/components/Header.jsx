@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { MenuIcon, XIcon, LogoutIcon } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
-import logo from '../assets/luemo-logo.png';
+import AuthContext from '../contexts/AuthContext';
 
 function Header({ pageTitle }) {
   const [isNavbar, setIsNavbar] = useState(false);
+  const { logout } = useContext(AuthContext);
   return (
     <header className="container fixed top-0 bg-slate-50 shadow">
       <section className="flex justify-between items-center px-4 py-2">
@@ -15,7 +16,7 @@ function Header({ pageTitle }) {
             : <XIcon className="h-6 w-6 opacity-75" onClick={() => setIsNavbar(!isNavbar)} />
         }
         <h1 className="text-xl">{pageTitle}</h1>
-        <img className="w-12" src={logo} alt="lu-e-mo-logo" />
+        <LogoutIcon className="h-6 w-6 opacity-75" onClick={logout} />
       </section>
       <nav className={!isNavbar ? 'hidden' : 'flex justify-around'}>
         <Link to="/menu">

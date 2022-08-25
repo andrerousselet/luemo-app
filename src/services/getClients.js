@@ -14,7 +14,10 @@ export default function Clients() {
 
   const getClients = async () => {
     const data = await getDocs(clientsCollectionRef);
-    setClients(data.docs.map((document) => ({ ...document.data(), id: document.id })));
+    const clientsData = data.docs.map((document) => (
+      { ...document.data(), id: document.id }
+    ));
+    setClients(clientsData);
   };
 
   const createClient = async () => {
@@ -26,6 +29,7 @@ export default function Clients() {
     setSurname('');
     setId('');
     setIsUpdating(false);
+    // await getClients();
   };
 
   const loadClientInfo = (client) => {
@@ -33,7 +37,6 @@ export default function Clients() {
     setName(client.name);
     setSurname(client.surname);
     setId(client.id);
-    console.log(client.address);
   };
 
   const updateClient = async () => {
@@ -44,6 +47,7 @@ export default function Clients() {
     setSurname('');
     setId('');
     setIsUpdating(false);
+    // await getClients();
   };
 
   const deleteClient = async (clientId) => {
