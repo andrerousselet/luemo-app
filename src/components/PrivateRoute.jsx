@@ -1,14 +1,19 @@
-import { useContext, useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import AuthContext from '../contexts/AuthContext';
+import { useEffect } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 function PrivateRoute() {
-  const { loggedUser } = useContext(AuthContext);
+  const token = localStorage.getItem('authToken') || null;
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (!loggedUser) navigate('/', { replace: true });
-  });
+    if (!token) {
+      navigate('/', {
+        replace: true,
+        state: location.pathname,
+      });
+    }
+  }, [token, navigate, location.pathname]);
 
   return <Outlet />;
 }
