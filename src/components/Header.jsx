@@ -19,15 +19,24 @@ function Header() {
         {/* <h1 className="text-xl">{pageTitle}</h1> */}
         <LogoutIcon className="h-6 w-6 opacity-75" onClick={logout} />
       </section>
-      <nav className={!isNavbar ? 'hidden' : 'flex justify-around'}>
-        <Link to="/menu">
-          <div className="">Menu</div>
+      <nav className={!isNavbar ? 'hidden' : 'flex flex-col'}>
+        <Link
+          to="/menu"
+          className="flex justify-center items-center m-1"
+        >
+          <div className="border-b-[1px]">MENU</div>
         </Link>
-        <Link to="/clients">
-          <div className="">Clients</div>
+        <Link
+          to="/clients"
+          className="flex justify-center items-center m-1"
+        >
+          <div className="border-b-[1px]">CLIENTS</div>
         </Link>
-        <Link to="/orders">
-          <div className="">Orders</div>
+        <Link
+          to="/orders"
+          className="flex justify-center items-center m-1"
+        >
+          <div className="border-b-[1px]">ORDERS</div>
         </Link>
       </nav>
     </header>
