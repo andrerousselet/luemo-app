@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {
+  useEffect, useState, useMemo, useCallback,
+} from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut,
 } from 'firebase/auth';
@@ -9,50 +11,53 @@ import { auth } from '../firebase';
 import generateErrorMessage from '../helpers/error.message';
 
 function AuthProvider({ children }) {
-  const [loggedUser, setLoggedUser] = useState('');
   const [errors, setErrors] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const register = async (email, password) => {
+  const register = useCallback(async (email, password) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      navigate('/');
     } catch (error) {
       generateErrorMessage({ message: error.message, setErrors });
     }
-  };
+  }, [navigate]);
 
-  const login = async (email, password) => {
+  const login = useCallback(async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      navigate(location.state ? location.state : '/', { replace: true });
     } catch (error) {
       generateErrorMessage({ message: error.message, setErrors });
     }
-  };
+  }, [location.state, navigate]);
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     await signOut(auth);
+    localStorage.removeItem('authToken');
     navigate('/');
-  };
+  }, [navigate]);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setLoggedUser(currentUser);
-        navigate('/home');
-      } else {
-        setLoggedUser();
+    const path = location.state ? location.state : location.pathname;
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        localStorage.setItem('authToken', user.accessToken);
+        navigate(path, { replace: true });
       }
     });
-    return unsubscribe;
-  }, []);
+    return () => {
+      unsubscribe();
+    };
+  }, [location.pathname, location.state, navigate]);
 
   const contextValue = useMemo(() => ({
-    loggedUser,
     register,
     login,
     logout,
     errors,
-  }), [loggedUser, register, login, logout, errors]);
+  }), [register, login, logout, errors]);
 
   return (
     <AuthContext.Provider value={contextValue}>
