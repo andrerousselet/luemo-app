@@ -4,16 +4,16 @@ import {
 } from 'firebase/firestore';
 import { db } from '../firebase';
 
-export default function Clients() {
+export default function ClientsData() {
   const [clients, setClients] = useState([]);
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [id, setId] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
-  const clientsCollectionRef = collection(db, 'clientes');
+  // const clientsCollectionRef = collection(db, 'clientes');
 
   const getClients = async () => {
-    const data = await getDocs(clientsCollectionRef);
+    const data = await getDocs(collection(db, 'clientes'));
     const clientsData = data.docs.map((document) => (
       { ...document.data(), id: document.id }
     ));
@@ -22,7 +22,7 @@ export default function Clients() {
 
   const createClient = async () => {
     await addDoc(
-      clientsCollectionRef,
+      collection(db, 'clientes'),
       { name, surname, createdAt: Timestamp.now() },
     );
     setName('');
