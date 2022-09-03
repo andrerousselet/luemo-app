@@ -1,13 +1,15 @@
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import ClientsData from '../services/getClients';
 
-function Home() {
+function Clients() {
   return (
     <>
       <Header />
+      <ClientsData />
       <Footer />
     </>
   );
 }
 
-export default Home;
+export default Clients;
