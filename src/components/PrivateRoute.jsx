@@ -8,14 +8,14 @@ function PrivateRoute() {
 
   useEffect(() => {
     if (!token) {
-      navigate('/', {
+      navigate('/login', {
         replace: true,
         state: location.pathname,
       });
     }
   }, [token, navigate, location.pathname]);
 
-  return <Outlet />;
+  return token && <Outlet />;
 }
 
 export default PrivateRoute;
